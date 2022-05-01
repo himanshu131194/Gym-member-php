@@ -111,7 +111,7 @@ error_reporting(0);
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Plan</label>
-                    <select name="plan" id="boxx" class="form-control" required>
+                    <select name="plan" id="boxx" class="form-control" onchange="myplandetail(this.value)" required>
 					<option value="">--Please Select--</option>
 					<?php
 						$query="select * from plan where active='yes'";
@@ -124,6 +124,10 @@ error_reporting(0);
 					?>
 				    </select>
                 </div>
+                <div class="mb-3" id="plandetls">
+
+                </div>
+
                 <button type="submit" class="btn btn-primary"
                     style="background-color: green;color: white; margin-bottom: 100px;">Submit</button>
             </form>
@@ -131,6 +135,26 @@ error_reporting(0);
 
         </div>
     </div>
+    <script>
+        function myplandetail(str){
+            if(str==""){
+                document.getElementById("plandetls").innerHTML = "";
+                return;
+            }else{
+                if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("plandetls").innerHTML=this.responseText;
+                    }
+                };
+                xmlhttp.open("GET","planDetails.php?q="+str,true);
+                xmlhttp.send();	
+            }
+        }
+    </script>
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
