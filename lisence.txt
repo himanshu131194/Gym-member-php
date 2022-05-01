@@ -1,0 +1,8 @@
+ 
+This project lisenced at open-source & GPL lisence .
+
+Disclaimer :
+1. In this project we uses many images from many free sources - pixabay.com , unsplash.com and we have also uses google free images
+2. We also uses some article from interne sources like from many website free artiacle .
+3. Along with we have also copy some lines of some wordpress-powered websites . But user's able to edit text/content and modify according to them.
+
