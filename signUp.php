@@ -56,33 +56,33 @@ error_reporting(0);
     <br>
     <br>
 
-    <div class="container">
+    <div class="container" style="max-width: 400px">
         <div class="row">
             <form action="newSubmit.php" method="post">
                 <div class="mb-3">
-                    <label for="phone1" class="form-label">Membership ID</label>
-                    <input name="phone1" type="text" class="form-control" id="m_id" name="m_id" value="<?php echo time(); ?>" readonly required>
+                    <label for="m_id" class="form-label">Membership ID</label>
+                    <input type="text" class="form-control" id="m_id" name="m_id" value="<?php echo time(); ?>" readonly required>
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">Name</label>
-                    <input name="address" type="text" class="form-control" id="u_name" name="u_name"aria-describedby="emailHelp"
+                    <label for="u_name" class="form-label">Name</label>
+                    <input name="u_name" type="text" class="form-control" id="u_name" name="u_name" maxlength="30"
                         required>
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Street name</label>
-                    <input name="address" type="text" class="form-control" id="street_name" name="street_name" aria-describedby="emailHelp"
+                    <input type="text" class="form-control" id="street_name" name="street_name" maxlength="30"
                         required>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">City</label>
-                    <input name="address" type="text" class="form-control" id="city"  name="city" aria-describedby="emailHelp"
+                    <input type="text" class="form-control" id="city"  name="city" maxlength="30"
                         required>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">Zipcode</label>
-                    <input name="address" type="text" class="form-control" id="zipcode" name="zipcode" aria-describedby="emailHelp"
+                    <input type="text" class="form-control" id="zipcode" name="zipcode" maxlength="30"
                         required>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">State</label>
-                    <input name="address" type="text" class="form-control" id="state" name="state" aria-describedby="emailHelp"
+                    <input type="text" class="form-control" id="state" name="state" maxlength="30"
                         required>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">Gender</label>
@@ -93,19 +93,18 @@ error_reporting(0);
                     </select>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">Date of bith</label>
-                    <input name="address" type="text" class="form-control" id="dob" name="dob" aria-describedby="emailHelp"
+                    <input class="form-control" type="date" name="dob" id="boxx" required
                         required>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">Phone No</label>
-                    <input name="address" type="text" class="form-control" id="mobile" name="mobile" aria-describedby="emailHelp"
-                        required>
+                    <input type="text" class="form-control" id="mobile" name="mobile" maxlength="11"
+                     required>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">Email</label>
-                    <input name="address" type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                        required>
+                    <input type="text" class="form-control" id="email" name="email" required maxlength="30"/>
                 </div><div class="mb-3">
                     <label for="address" class="form-label">Joining Date</label>
-                    <input type="date" name="jdate" class="form-control" id="jdate" name="jdate" aria-describedby="emailHelp"
+                    <input type="date" name="jdate" class="form-control" id="jdate" name="jdate"
                         required>
                 </div>
                 </div>

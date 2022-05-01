@@ -1,38 +1,84 @@
-
-
 <?php
+require 'connection.php';
 
-include 'connection.php';
+ $memID=$_POST['m_id'];
+ $uname=$_POST['u_name'];
+ $stname=$_POST['street_name'];
+ $city=$_POST['city'];
+ $zipcode=$_POST['zipcode'];
+ $state=$_POST['state'];
+ $gender=$_POST['gender'];
+ $dob=$_POST['dob'];
+ $phn=$_POST['mobile'];
+ $email=$_POST['email'];
+ $jdate=$_POST['jdate'];
+ $plan=$_POST['plan'];
 
-error_reporting(0);
+// inserting into users table
+$query="insert into users(username,gender,mobile,email,dob,joining_date,userid) values('$uname','$gender','$phn','$email','$dob','$jdate','$memID')";
+    if(mysqli_query($conn,$query)==1){
+      //Retrieve information of plan selected by user
+      $query1="select * from plan where pid='$plan'";
+      $result=mysqli_query($conn,$query1);
 
-$name =     $_POST['name'];
-$phone1 =     $_POST['phone1'];
-$email=    $_POST['email'];
- $address=   $_POST['address'];
- $dateofreq =  date("Y/m/d");
+        if($result){
+          $value=mysqli_fetch_row($result);
+          date_default_timezone_set("Asia/Calcutta"); 
+          $d=strtotime("+".$value[3]." Months");
+          $cdate=date("Y-m-d"); //current date
+          $expiredate=date("Y-m-d",$d); //adding validity retrieve from plan to current date
+          //inserting into enrolls_to table of corresponding userid
+          $query2="insert into enrolls_to(pid,uid,paid_date,expire,renewal) values('$plan','$memID','$cdate','$expiredate','yes')";
+          if(mysqli_query($conn,$query2)==1){
 
+            $query4="insert into health_status(uid) values('$memID')";
+            if(mysqli_query($conn,$query4)==1){
 
- echo "Your name is : ".$name;
-echo "<br>";
-echo "Your phone number is: ".$phone1;
-echo "<br>";
-echo "Your emil is : ".$email;
-echo "<br>";
-echo "Your address is : ".$address;
-echo "<br>";
-echo "Today's date: ".$dateofreq;
-echo "<br>";
+              $query5="insert into address(id,streetName,state,city,zipcode) values('$memID','$stname','$state','$city','$zipcode')";
+              if(mysqli_query($conn,$query5)==1){
+               echo "<head><script>alert('Member Added ');</script></head></html>";
+               echo "<meta http-equiv='refresh' content='0; url=admin/dashboard/admin/table_view.php'>";
+              }
+              else{
+                  echo "<head><script>alert('Member Added Failed');</script></head></html>";
+                 echo "error: ".mysqli_error($conn);
+                 //Deleting record of users if inserting to enrolls_to table failed to execute
+                 $query3 = "DELETE FROM users WHERE userid='$memID'";
+                 mysqli_query($conn,$query3);
+              }
+            }
+             
+            else{
+               echo "<head><script>alert('Member Added Failed');</script></head></html>";
+              echo "error: ".mysqli_error($conn);
+               //Deleting record of users if inserting to enrolls_to table failed to execute
+                $query3 = "DELETE FROM users WHERE userid='$memID'";
+                mysqli_query($conn,$query3);
+            }
+            
+          }
+          else{
+            echo "<head><script>alert('Member Added Failed');</script></head></html>";
+            echo "error: ".mysqli_error($conn);
+            //Deleting record of users if inserting to enrolls_to table failed to execute
+             $query3 = "DELETE FROM users WHERE userid='$memID'";
+             mysqli_query($conn,$query3);
+          }
 
-$sql = "INSERT INTO contactus(fullname,phone1,email,address,dateofreq) VALUES ('$name','$phone1','$email','$address','$dateofreq')";
+         
+        }
+        else
+        {
+          echo "<head><script>alert('Member Added Failed');</script></head></html>";
+          echo "error: ".mysqli_error($conn);
+           //Deleting record of users if retrieving inf of plan failed
+          $query3 = "DELETE FROM users WHERE userid='$memID'";
+          mysqli_query($conn,$query3);
+        }
 
-$query =  mysqli_query($conn,$sql);
-
-if ($query) {
-    echo "your request submited to our database , we will respond you soon ... ";
-}
-else {
-    echo "plz try again :( ";
-}
-
+    }
+    else{
+        echo "<head><script>alert('Member Added Failed');</script></head></html>";
+        echo "error: ".mysqli_error($conn);
+      }
 ?>
